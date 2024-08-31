@@ -10,7 +10,8 @@ app.use(express.json());
 // MongoDB bağlantısı
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000 // 30 saniye
 })
     .then(() => {
         console.log("Connected to MongoDB");
