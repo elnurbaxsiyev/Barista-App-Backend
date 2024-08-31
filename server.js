@@ -15,7 +15,7 @@ mongoose.connect(process.env.CONNECTION_STRING)
         console.error("Failed to connect to MongoDB", error.message);
     });
 
-app.listen(8080, () => {
+app.listen(10000, () => {
     console.log("Server running on 8080");
 });
 
