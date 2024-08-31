@@ -1,13 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
-require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.CONNECTION_STRING)
+// MongoDB bağlantısı
+mongoose.connect(process.env.CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(() => {
         console.log("Connected to MongoDB");
     })
@@ -15,21 +19,21 @@ mongoose.connect(process.env.CONNECTION_STRING)
         console.error("Failed to connect to MongoDB", error.message);
     });
 
-app.listen(10000, () => {
-    console.log("Server running on 8080");
+// Port numarasını doğru şekilde ayarla
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
+// Routerları tanımla
 const UsersRouter = require("./routes/Users.routes");
 const AuthRouter = require("./routes/Auth.routes");
+const CategoriesRouter = require("./routes/Categories.routes");
+const ProductsRouter = require("./routes/Products.routes");
+const OrdersRouter = require("./routes/Orders.routes");
 
 app.use("/api/Users", UsersRouter);
 app.use("/api/auth", AuthRouter);
-
-const CategoriesRouter = require("./routes/Categories.routes");
 app.use("/api/Categories", CategoriesRouter);
-
-const ProductsRouter = require("./routes/Products.routes");
 app.use("/api/Products", ProductsRouter);
-
-const OrdersRouter = require("./routes/Orders.routes");
 app.use("/api/Orders", OrdersRouter);
