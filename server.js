@@ -8,11 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB bağlantısı
-mongoose.connect(process.env.CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000 // 30 saniye
-})
+mongoose.connect(process.env.CONNECTION_STRING)
     .then(() => {
         console.log("Connected to MongoDB");
     })
@@ -21,7 +17,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
     });
 
 // Port numarasını doğru şekilde ayarla
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
