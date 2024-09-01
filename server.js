@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB bağlantısı
+console.log(process.env.CONNECTION_STRING);
 mongoose.connect(process.env.CONNECTION_STRING)
     .then(() => {
         console.log("Connected to MongoDB");
